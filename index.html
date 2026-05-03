@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+
+  <!-- iOS PWA -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="SHREDDED" />
+  <meta name="format-detection" content="telephone=no" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%23000'/><text x='50%' y='58%' font-family='-apple-system' font-size='26' font-weight='800' fill='%2300E5C7' text-anchor='middle'>SHRED</text></svg>" />
+  <link rel="manifest" href='data:application/manifest+json,{"name":"SHREDDED","short_name":"SHREDDED","start_url":".","display":"standalone","background_color":"%23000000","theme_color":"%23000000","orientation":"portrait"}' />
+
+  <title>SHREDDED</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Ambient atmosphere layer (radial cyan glow + grain) -->
+  <div class="atmosphere" aria-hidden="true">
+    <div class="atmosphere__glow atmosphere__glow--top"></div>
+    <div class="atmosphere__glow atmosphere__glow--bottom"></div>
+    <div class="atmosphere__grain"></div>
+  </div>
+
+  <!-- App shell -->
+  <main id="app" class="app">
+
+    <!-- ==================== HOME ==================== -->
+    <section class="view" data-view="home" aria-labelledby="view-home-title">
+      <header class="view__header">
+        <p class="view__eyebrow">Today</p>
+        <h1 id="view-home-title" class="view__title">Home</h1>
+      </header>
+      <div class="view__body">
+        <div class="placeholder">
+          <span class="placeholder__pulse"></span>
+          <p>Daily dashboard mounts here in Phase 2.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== MEALS ==================== -->
+    <section class="view" data-view="meals" aria-labelledby="view-meals-title" hidden>
+      <header class="view__header">
+        <p class="view__eyebrow">Fuel</p>
+        <h1 id="view-meals-title" class="view__title">Meals</h1>
+      </header>
+      <div class="view__body">
+        <div class="placeholder">
+          <span class="placeholder__pulse"></span>
+          <p>Macro ring, meal cards & USDA search land here.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== LIFT ==================== -->
+    <section class="view" data-view="lift" aria-labelledby="view-lift-title" hidden>
+      <header class="view__header">
+        <p class="view__eyebrow">Train</p>
+        <h1 id="view-lift-title" class="view__title">Lift</h1>
+      </header>
+      <div class="view__body">
+        <div class="placeholder">
+          <span class="placeholder__pulse"></span>
+          <p>Session view + progressive overload engine.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== BODY ==================== -->
+    <section class="view" data-view="body" aria-labelledby="view-body-title" hidden>
+      <header class="view__header">
+        <p class="view__eyebrow">Track</p>
+        <h1 id="view-body-title" class="view__title">Body</h1>
+      </header>
+      <div class="view__body">
+        <div class="placeholder">
+          <span class="placeholder__pulse"></span>
+          <p>Weight, waist, trends & data backup.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== GROCERY ==================== -->
+    <section class="view" data-view="grocery" aria-labelledby="view-grocery-title" hidden>
+      <header class="view__header">
+        <p class="view__eyebrow">Shop</p>
+        <h1 id="view-grocery-title" class="view__title">Grocery</h1>
+      </header>
+      <div class="view__body">
+        <div class="placeholder">
+          <span class="placeholder__pulse"></span>
+          <p>Categorized checklist, syncs to Meals availability.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STATS ==================== -->
+    <section class="view" data-view="stats" aria-labelledby="view-stats-title" hidden>
+      <header class="view__header">
+        <p class="view__eyebrow">Insight</p>
+        <h1 id="view-stats-title" class="view__title">Stats</h1>
+      </header>
+      <div class="view__body">
+        <div class="placeholder">
+          <span class="placeholder__pulse"></span>
+          <p>BMR, TDEE, charts, plateau detection & citations.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast layer -->
+  <div id="toast-root" class="toast-root" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ==================== BOTTOM NAV ==================== -->
+  <nav class="tabbar" role="tablist" aria-label="Primary">
+    <div class="tabbar__inner">
+
+      <button class="tab" role="tab" data-tab="home" aria-selected="true" aria-controls="view-home-title">
+        <span class="tab__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3.5 11.2 12 4l8.5 7.2"/>
+            <path d="M5.5 10v9a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-9"/>
+            <path d="M10 20v-5a2 2 0 0 1 4 0v5"/>
+          </svg>
+        </span>
+        <span class="tab__label">Home</span>
+        <span class="tab__dot" aria-hidden="true"></span>
+      </button>
+
+      <button class="tab" role="tab" data-tab="meals" aria-selected="false">
+        <span class="tab__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 3v8a3 3 0 0 0 3 3v7"/>
+            <path d="M7 3v6"/>
+            <path d="M10 3v6"/>
+            <path d="M16 3c-1.5 1.5-2 4-2 6s.5 4 2 5v7"/>
+          </svg>
+        </span>
+        <span class="tab__label">Meals</span>
+        <span class="tab__dot" aria-hidden="true"></span>
+      </button>
+
+      <button class="tab" role="tab" data-tab="lift" aria-selected="false">
+        <span class="tab__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2.5 12h2"/>
+            <path d="M19.5 12h2"/>
+            <rect x="4.5" y="8.5" width="3" height="7" rx="1"/>
+            <rect x="16.5" y="8.5" width="3" height="7" rx="1"/>
+            <path d="M7.5 12h9"/>
+          </svg>
+        </span>
+        <span class="tab__label">Lift</span>
+        <span class="tab__dot" aria-hidden="true"></span>
+      </button>
+
+      <button class="tab" role="tab" data-tab="body" aria-selected="false">
+        <span class="tab__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="5.5" r="2.2"/>
+            <path d="M8.5 21V14l-2-3.5a2 2 0 0 1 1.7-3h7.6a2 2 0 0 1 1.7 3L15.5 14v7"/>
+            <path d="M10.5 14h3"/>
+          </svg>
+        </span>
+        <span class="tab__label">Body</span>
+        <span class="tab__dot" aria-hidden="true"></span>
+      </button>
+
+      <button class="tab" role="tab" data-tab="grocery" aria-selected="false">
+        <span class="tab__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 4h2.5l1.7 11.2a2 2 0 0 0 2 1.7h7.4a2 2 0 0 0 2-1.6L20.5 8H7"/>
+            <circle cx="9.5" cy="20" r="1.2"/>
+            <circle cx="17" cy="20" r="1.2"/>
+          </svg>
+        </span>
+        <span class="tab__label">Grocery</span>
+        <span class="tab__dot" aria-hidden="true"></span>
+      </button>
+
+      <button class="tab" role="tab" data-tab="stats" aria-selected="false">
+        <span class="tab__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 20V10"/>
+            <path d="M10 20V4"/>
+            <path d="M16 20v-7"/>
+            <path d="M3 20h18"/>
+          </svg>
+        </span>
+        <span class="tab__label">Stats</span>
+        <span class="tab__dot" aria-hidden="true"></span>
+      </button>
+
+    </div>
+  </nav>
+
+  <script src="app.js" defer></script>
+  <script src="exercises.js" defer></script>
+  <script src="meals_data.js" defer></script>
+  <script src="grocery_data.js" defer></script>
+  <script src="home.js" defer></script>
+  <script src="lift.js" defer></script>
+  <script src="meals.js" defer></script>
+  <script src="body.js" defer></script>
+  <script src="grocery.js" defer></script>
+  <script src="stats.js" defer></script>
+</body>
+</html>
