@@ -1,4 +1,4 @@
-## /* ============================================================
+ /* ============================================================
 SHREDDED — Meals Tab Module (Phase 4)
 
 Surfaces: Prep Guide bar, Fridge Freshness Tracker, SVG Macro
